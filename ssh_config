@@ -2,3 +2,6 @@ Host *
   ForwardAgent yes
   ServerAliveCountMax 600
   ServerAliveInterval 10
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
