@@ -4,8 +4,6 @@ alias ls="ls -G"
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
 
-alias mou="open /Applications/Mou.app"
-
 export HOMEBREW_NO_ANALYTICS=1
 
 ####################################################
