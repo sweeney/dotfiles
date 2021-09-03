@@ -8,6 +8,7 @@ export HOMEBREW_NO_ANALYTICS=1
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
 ####################################################
 
 function parse_git_branch {
