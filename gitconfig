@@ -20,7 +20,5 @@
         added = yellow
         changed = green
         untracked = cyan
-[init]
-	templatedir = ~/.git_template
 [url "git@github.com:unravelin"]
 	insteadOf = https://github.com/unravelin
