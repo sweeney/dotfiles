@@ -22,3 +22,5 @@
         untracked = cyan
 [url "git@github.com:unravelin"]
 	insteadOf = https://github.com/unravelin
+[url "git@github.com:sweeney"]
+	insteadOf = https://github.com/sweeney
