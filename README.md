@@ -1,2 +1,2 @@
 # dotfiles
-todo: put in some effort here
+todo: put in some effort here?
