@@ -3,6 +3,7 @@ alias ls="ls -G"
 
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:"$HOME/.local/bin"
 
 export HOMEBREW_NO_ANALYTICS=1
 
@@ -16,3 +17,5 @@ function parse_git_branch {
 }
 
 export PS1="\u@\h:\W \$(parse_git_branch)$ "
+
+export GOOGLE_CLOUD_PROJECT=ravelin-dev
