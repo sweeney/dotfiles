@@ -1,6 +1,14 @@
-ln -s /Users/sweeney/src/github.com/sweeney/dotfiles/bash_profile .bash_profile
-ln -s /Users/sweeney/src/github.com/sweeney/dotfiles/bashrc .bashrc
-ln -s /Users/sweeney/src/github.com/sweeney/dotfiles/gitconfig .gitconfig
-ln -s /Users/sweeney/src/github.com/sweeney/dotfiles/plan .plan
-ln -s /Users/sweeney/src/github.com/sweeney/dotfiles/vimrc .vimrc
-ln -s /Users/sweeney/src/github.com/sweeney/dotfiles/ssh/config .ssh/config
+#!/usr/bin/env bash
+set -e
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+ln -sf "$DOTFILES_DIR/bash_profile" ~/".bash_profile"
+ln -sf "$DOTFILES_DIR/bashrc" ~/".bashrc"
+ln -sf "$DOTFILES_DIR/gitconfig" ~/".gitconfig"
+ln -sf "$DOTFILES_DIR/plan" ~/".plan"
+ln -sf "$DOTFILES_DIR/vimrc" ~/".vimrc"
+
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+ln -sf "$DOTFILES_DIR/ssh/config" ~/.ssh/config

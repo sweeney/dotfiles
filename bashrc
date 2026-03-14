@@ -18,4 +18,3 @@ function parse_git_branch {
 
 export PS1="\u@\h:\W \$(parse_git_branch)$ "
 
-export GOOGLE_CLOUD_PROJECT=ravelin-dev
