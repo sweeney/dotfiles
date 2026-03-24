@@ -9,6 +9,10 @@ export HOMEBREW_NO_ANALYTICS=1
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Don't save commands containing secrets to history
+export HISTCONTROL=ignoreboth
+export HISTIGNORE="*SECRET=*:*PASSWORD=*:*TOKEN=*:*KEY=*:*_PASS=*"
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ####################################################
 
