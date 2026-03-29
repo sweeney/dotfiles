@@ -24,3 +24,4 @@ export PS1="\u@\h:\W \$(parse_git_branch)$ "
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
+command -v direnv &>/dev/null && eval "$(direnv hook bash)"
