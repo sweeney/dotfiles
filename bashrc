@@ -30,8 +30,25 @@ mkcd () {
   mkdir -p "$1" && cd "$1"
 }
 
-# screen session helpers
+# screen / tmux session helpers
 [ -f ~/.screen.bash ] && source ~/.screen.bash
+[ -f ~/.tmux.bash ] && source ~/.tmux.bash
+
+# Guard against accidentally killing a screen/tmux session by typing `exit`
+exit() {
+  if [ -n "$TMUX" ]; then
+    echo "You're inside a tmux session ($(tmux display-message -p '#S'))."
+    echo "Detach with Ctrl-a d, or type 'realexit' to exit anyway."
+    return 1
+  fi
+  if [ -n "$STY" ]; then
+    echo "You're inside a screen session ($STY)."
+    echo "Detach with Ctrl-a d, or type 'realexit' to exit anyway."
+    return 1
+  fi
+  builtin exit "$@"
+}
+realexit() { builtin exit "$@"; }
 
 # give each machine a .bashrc.local file if they want it
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local

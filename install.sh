@@ -11,6 +11,7 @@ ln -sf "$DOTFILES_DIR/vimrc" ~/".vimrc"
 
 ln -sf "$DOTFILES_DIR/tmux.conf" ~/".tmux.conf"
 ln -sf "$DOTFILES_DIR/screen.bash" ~/".screen.bash"
+ln -sf "$DOTFILES_DIR/tmux.bash" ~/".tmux.bash"
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh

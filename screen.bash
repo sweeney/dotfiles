@@ -34,17 +34,6 @@ isscreen() {
   fi
 }
 
-exit() {
-  if [ -n "$STY" ]; then
-    echo "You're inside a screen session ($STY)."
-    echo "Detach with Ctrl-a d, or type 'realexit' to exit anyway."
-    return 1
-  fi
-  builtin exit "$@"
-}
-
-realexit() { builtin exit "$@"; }
-
 sn() { screen -S "${1:?Usage: sn <name>}"; }
 sl() { screen -ls; }
 sd() { screen -d "$STY"; }
