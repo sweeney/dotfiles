@@ -10,6 +10,7 @@ ln -sf "$DOTFILES_DIR/plan" ~/".plan"
 ln -sf "$DOTFILES_DIR/vimrc" ~/".vimrc"
 
 ln -sf "$DOTFILES_DIR/tmux.conf" ~/".tmux.conf"
+ln -sf "$DOTFILES_DIR/screen.bash" ~/".screen.bash"
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh

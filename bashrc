@@ -30,6 +30,9 @@ mkcd () {
   mkdir -p "$1" && cd "$1"
 }
 
+# screen session helpers
+[ -f ~/.screen.bash ] && source ~/.screen.bash
+
 # give each machine a .bashrc.local file if they want it
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
