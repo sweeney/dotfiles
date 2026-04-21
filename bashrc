@@ -5,6 +5,7 @@ export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:"$HOME/.local/bin"
 
+# Quieten down homebrew
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ENV_HINTS=1
@@ -16,8 +17,8 @@ export HISTCONTROL=ignoreboth
 export HISTIGNORE="*SECRET=*:*PASSWORD=*:*TOKEN=*:*KEY=*:*_PASS=*"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
-####################################################
 
+# sweeney@machine:dir (master)$
 function parse_git_branch {
        git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' 
 }
@@ -29,6 +30,8 @@ mkcd () {
   mkdir -p "$1" && cd "$1"
 }
 
+# give each machine a .bashrc.local file if they want it
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
+# support direnv if we have it
 command -v direnv &>/dev/null && eval "$(direnv hook bash)"
