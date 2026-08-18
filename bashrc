@@ -1,7 +1,8 @@
 # Read by BSD ls only; GNU ignores it in favour of LS_COLORS.
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-# GNU ls and macOS 15+ take --color; older BSD ls only understands -G.
-if ls --color=auto . >/dev/null 2>&1; then
+# GNU ls colours with --color, BSD with -G. Test for GNU by --version rather
+# than probing --color: BSD ls accepts --color, exits 0, and ignores it.
+if ls --version 2>/dev/null | grep -q GNU; then
   alias ls="ls --color=auto"
 else
   alias ls="ls -G"
