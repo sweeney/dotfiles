@@ -1,9 +1,15 @@
 Include ~/.colima/ssh_config
 
+# Per-host exceptions go above Host * — first value obtained wins.
+
 Host *
-  ForwardAgent yes
+  # Forwarding exposes the agent to the far end. `ssh -A` when it's needed,
+  # `ssh -J` to hop.
+  ForwardAgent no
   ServerAliveCountMax 600
   ServerAliveInterval 10
   AddKeysToAgent yes
+  # macOS-only, and unknown options are fatal to the whole file, not skipped.
+  IgnoreUnknown UseKeychain
   UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
