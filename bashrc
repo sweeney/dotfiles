@@ -1,5 +1,11 @@
+# Read by BSD ls only; GNU ignores it in favour of LS_COLORS.
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-alias ls="ls -G"
+# GNU ls and macOS 15+ take --color; older BSD ls only understands -G.
+if ls --color=auto . >/dev/null 2>&1; then
+  alias ls="ls --color=auto"
+else
+  alias ls="ls -G"
+fi
 
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
@@ -12,11 +18,27 @@ export HOMEBREW_NO_ENV_HINTS=1
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-# Don't save commands containing secrets to history
+# Keep obvious secrets out of history. Case-sensitive, and ':' is the separator
+# so no pattern may contain one — a stray ':' leaves a bare '*' that matches
+# everything. Leading space (via ignoreboth) is the habit that actually works.
 export HISTCONTROL=ignoreboth
-export HISTIGNORE="*SECRET=*:*PASSWORD=*:*TOKEN=*:*KEY=*:*_PASS=*"
+export HISTIGNORE='*SECRET=*:*secret=*:*PASSWORD=*:*password=*:*TOKEN=*:*token=*:*KEY=*:*key=*:*_PASS=*:*--password*:*--token*'
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Defaults are 500 lines, and without histappend the last shell to exit
+# overwrites the file — so in a multi-pane tmux session most of it is lost.
+HISTSIZE=100000
+HISTFILESIZE=200000
+shopt -s histappend
+
+# Homebrew, if present. Prefix varies by platform, and shellenv is what puts
+# brew on PATH, so probe rather than `command -v`.
+for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  if [ -x "$_brew" ]; then
+    eval "$("$_brew" shellenv)"
+    break
+  fi
+done
+unset _brew
 
 # sweeney@machine:dir (master)$
 function parse_git_branch {
@@ -55,3 +77,7 @@ realexit() { builtin exit "$@"; }
 
 # support direnv if we have it
 command -v direnv &>/dev/null && eval "$(direnv hook bash)"
+
+# The guards above are `cond && action`, so a false last one makes sourcing
+# this file report failure. Keep `true` last.
+true
