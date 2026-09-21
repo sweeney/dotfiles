@@ -41,6 +41,26 @@ for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbr
 done
 unset _brew
 
+# Tailscale's macOS app keeps its CLI inside the bundle and never puts it on
+# PATH. Adding the bundle's MacOS dir instead would be a trap: the binary there
+# is named `Tailscale`, so `tailscale` only resolves on a case-insensitive
+# filesystem. A wrapper function is case-exact everywhere. The path is baked in
+# by eval at definition time, so unsetting the loop variable can't break it
+# (`${_ts@Q}` would be tidier, but it's a parse error on the bash 3.2 that
+# macOS still ships as /bin/bash).
+# Guarded by `command -v` so a real tailscale (Linux, Homebrew) always wins —
+# hence this sits after brew's shellenv, which is what puts brew's on PATH.
+if ! command -v tailscale &>/dev/null; then
+  for _ts in /Applications/Tailscale.app/Contents/MacOS/Tailscale \
+             "$HOME/Applications/Tailscale.app/Contents/MacOS/Tailscale"; do
+    if [ -x "$_ts" ]; then
+      eval "tailscale() { command \"$_ts\" \"\$@\"; }"
+      break
+    fi
+  done
+  unset _ts
+fi
+
 # sweeney@machine:dir (master)$
 function parse_git_branch {
        git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' 
